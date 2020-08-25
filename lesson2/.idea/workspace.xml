@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="312c219f-219a-461b-aaac-7d330e5cdbfc" name="Default Changelist" comment="Add homework lesson-2" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="lesson-2" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1gYYwQyS0JisE1qAK45v88AxABY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RunManager" selected="Application.ClientApp">
+    <configuration name="ClientApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.korolkovrs.lesson2.ClientApp" />
+      <module name="lesson2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.korolkovrs.lesson2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientApp2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.korolkovrs.lesson2.ClientApp2" />
+      <module name="lesson2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.korolkovrs.lesson2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataBase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.korolkovrs.lesson2.DataBase" />
+      <module name="lesson2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.korolkovrs.lesson2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataBaseAuthService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.korolkovrs.lesson2.DataBaseAuthService" />
+      <module name="lesson2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.korolkovrs.lesson2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.korolkovrs.lesson2.ServerApp" />
+      <module name="lesson2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.korolkovrs.lesson2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ClientApp" />
+        <item itemvalue="Application.ServerApp" />
+        <item itemvalue="Application.DataBaseAuthService" />
+        <item itemvalue="Application.DataBase" />
+        <item itemvalue="Application.ClientApp2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="312c219f-219a-461b-aaac-7d330e5cdbfc" name="Default Changelist" comment="" />
+      <created>1598293230971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598293230971</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add homework lesson-2">
+      <created>1598378011222</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1598378011222</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add homework lesson-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add homework lesson-2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1598293598529">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1598293598529" />
+    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser" timestamp="1598374175956">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="119" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1598374175956" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598376932652">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1598376932652" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1598377834590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1598377834590" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1598377834590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1598377834590" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1598377834590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1598377834590" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1598377834590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598377834590" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1598294627117">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1598294627117" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1598378108963">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1598378108963" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1598376865179">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1598376865179" />
+  </component>
+</project>
