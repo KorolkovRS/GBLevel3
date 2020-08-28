@@ -90,6 +90,13 @@ public class ClientHandler {
             } else if (message.startsWith("/w")) {
                 server.privateMessage(message, this);
                 continue;
+            } else if (message.startsWith("/changeNick")) {
+                String newNick = message.substring("/changeNick".length()).trim();
+                server.getAuthService().changeNickname(this.record.getId(), newNick);
+
+                sendMessage(String.format("Nickname changed to %s. Changes will take effect after restarting",
+                        newNick));
+                continue;
             }
             server.broadcastMessage(String.format("%s: %s", record.getName(), message));
         }

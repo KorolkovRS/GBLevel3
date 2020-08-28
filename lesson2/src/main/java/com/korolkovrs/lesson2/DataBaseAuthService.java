@@ -1,6 +1,5 @@
 package com.korolkovrs.lesson2;
 
-import com.mysql.jdbc.Driver;
 
 import java.sql.*;
 
@@ -8,23 +7,7 @@ public class DataBaseAuthService implements AuthService {
     private Connection connection;
 
     public DataBaseAuthService() {
-        connection();
-    }
-
-    private void connection() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Driver not found");
-        }
-
-        try {
-            DriverManager.registerDriver(new Driver());
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:8888/chat", "root", "root");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new RuntimeException("Driver Registration error");
-        }
+        connection = DataBaseConnectionService.getConnection();
     }
 
     @Override
@@ -51,6 +34,31 @@ public class DataBaseAuthService implements AuthService {
         return user;
     }
 
+////    String sql = "update people set firstname=? , lastname=? where id=?";
+////
+////    PreparedStatement preparedStatement =
+////            connection.prepareStatement(sql);
+////
+////preparedStatement.setString(1, "Gary");
+////preparedStatement.setString(2, "Larson");
+////preparedStatement.setLong(3, 123);
+//
+//    int rowsAffected = preparedStatement.executeUpdate();
+
+    @Override
+    public boolean changeNickname(int id, String newNick) {
+        String sql = String.format("UPDATE userlist SET name = '%s' WHERE id = %d", newNick, id);
+        try {
+            Statement updateStatement = connection.createStatement();
+            int result = updateStatement.executeUpdate(sql);
+            System.out.println(result);
+            return (result != 0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     public void close() {
         try {
             connection.close();
@@ -58,14 +66,5 @@ public class DataBaseAuthService implements AuthService {
             throwables.printStackTrace();
         }
     }
-
-
-
-    public static void main(String[] args) {
-        DataBaseAuthService test = new DataBaseAuthService();
-
-        System.out.println(test.findRecord("user1", "qwerty"));
-    }
-
 }
 
