@@ -4,15 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ChatClient extends JFrame {
     private int connectionCount = 1;
     private String host = "localhost";
     private int port = Server.PORT;
+    private final int NUMB_OF_SAVED_MESSAGE = 100;
 
     Socket socket;
     DataInputStream in;
@@ -51,7 +50,7 @@ public class ChatClient extends JFrame {
 
     public void connection() {
         charTextArea.setText("Enter [/auth <login> <password>] for authorization\n");
-        if(connectionCount < 6) {
+        if (connectionCount < 6) {
             try {
                 socket = new Socket(host, port);
                 in = new DataInputStream(socket.getInputStream());
@@ -77,6 +76,7 @@ public class ChatClient extends JFrame {
 
         Thread thread = new Thread(new Runnable() {
             private StringBuilder sb = new StringBuilder();
+
             @Override
             public void run() {
                 boolean isAuth = false;
@@ -85,10 +85,11 @@ public class ChatClient extends JFrame {
                         String message = in.readUTF();
                         displayMessageOnGUI(message);
 
-                        if(!isAuth) {
+                        if (!isAuth) {
                             if (message.startsWith("/authok")) {
                                 System.out.println("Authorized");
                                 isAuth = true;
+                                displayMessageOnGUI(load());
                             }
                         } else {
                             if (message.equals("/end")) {
@@ -96,6 +97,7 @@ public class ChatClient extends JFrame {
                             }
                         }
                     } catch (IOException e) {
+                        save();
                         Thread.currentThread().interrupt();
                         unsubscribe();
                         displayMessageOnGUI("Session closed. Goodbye!");
@@ -136,20 +138,57 @@ public class ChatClient extends JFrame {
         }
     }
 
-    private class SendButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (inputField.getText().isBlank()) {
-                return;
-            }
-            try {
-                out.writeUTF(inputField.getText());
-            } catch (IOException ioException) {
-                System.out.println("Sending message error");
-
-            }
-            inputField.setText("");
+    public void save() {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File("C:\\Users\\" +
+                "Пользователь.000\\Desktop\\GBLevel3\\lesson2\\src\\main\\resources\\history.txt")))){
+            writer.write(charTextArea.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-}
+
+    public String load() {
+        String text = null;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" +
+                "Пользователь.000\\Desktop\\GBLevel3\\lesson2\\src\\main\\resources\\history.txt")))) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String buff;
+            boolean start = false;
+            int i = 0;
+
+            while ((buff = reader.readLine()) != null) {
+                if (i >= NUMB_OF_SAVED_MESSAGE) {
+                    break;
+                }
+                if (start && (!buff.isBlank())) {
+                    stringBuilder.append(buff + "\n");
+                    i++;
+                }
+                if (buff.startsWith("/authok")) {
+                    start = true;
+                }
+            }
+            text = stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (text == null) ? "Message history is empty" : text;
+    }
+
+        private class SendButtonListener implements ActionListener {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (inputField.getText().isBlank()) {
+                    return;
+                }
+                try {
+                    out.writeUTF(inputField.getText());
+                } catch (IOException ioException) {
+                    System.out.println("Sending message error");
+
+                }
+                inputField.setText("");
+            }
+        }
+    }
