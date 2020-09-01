@@ -31,7 +31,7 @@ public interface AuthService {
             return login;
         }
 
-        public String getPassword() {
+        String getPassword() {
             return password;
         }
 

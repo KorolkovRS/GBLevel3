@@ -45,30 +45,24 @@ public class ClientHandler {
     }
 
     public void doAuth() throws IOException {
-        while (true) {
-            System.out.println("Waiting for auth...");
-            String message = in.readUTF();
+        System.out.println("Waiting for auth...");
 
-            if (message.startsWith("/auth")) {
-                String[] credentials = message.split("\\s");
-                if (credentials.length == 3) {
-                    AuthService.Record possibleRecord = server.getAuthService().findRecord(credentials[1], credentials[2]);
-                    if (possibleRecord != null) {
-                        if (!server.isOccupied(possibleRecord)) {
-                            record = possibleRecord;
-                            sendMessage("/authok " + record.getName());
-                            server.broadcastMessage("Logged-in " + record.getName());
-                            server.subscribe(this);
-                            break;
-                        } else {
-                            sendMessage(String.format("Current user [%s] is already occupied", possibleRecord.getName()));
-                        }
-                    } else {
-                        sendMessage("User no found");
-                    }
+        while (true) {
+            String message = in.readUTF();
+            String[] loginAndPassword = message.split(" ");
+            record = this.server.getAuthService().findRecord(loginAndPassword[0], loginAndPassword[1]);
+
+            if (record != null) {
+                if (!server.isOccupied(record)) {
+                    sendMessage("/authok " + record.getName());
+                    server.broadcastMessage("Logged-in " + record.getName());
+                    server.subscribe(this);
+                    return;
+                } else {
+                    sendMessage("/occupied");
                 }
             } else {
-                sendMessage("Incorrect format message. Enter [/auth <login> <password>] for authorization");
+                sendMessage("/notfound");
             }
         }
     }

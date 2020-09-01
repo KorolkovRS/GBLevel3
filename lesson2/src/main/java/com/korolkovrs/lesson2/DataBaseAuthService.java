@@ -34,17 +34,6 @@ public class DataBaseAuthService implements AuthService {
         return user;
     }
 
-////    String sql = "update people set firstname=? , lastname=? where id=?";
-////
-////    PreparedStatement preparedStatement =
-////            connection.prepareStatement(sql);
-////
-////preparedStatement.setString(1, "Gary");
-////preparedStatement.setString(2, "Larson");
-////preparedStatement.setLong(3, 123);
-//
-//    int rowsAffected = preparedStatement.executeUpdate();
-
     @Override
     public boolean changeNickname(int id, String newNick) {
         String sql = String.format("UPDATE userlist SET name = '%s' WHERE id = %d", newNick, id);

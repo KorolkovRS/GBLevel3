@@ -7,23 +7,28 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-public class ChatClient extends JFrame {
+public class ChatClient {
     private int connectionCount = 1;
     private String host = "localhost";
     private int port = Server.PORT;
     private final int NUMB_OF_SAVED_MESSAGE = 100;
 
-    Socket socket;
-    DataInputStream in;
-    DataOutputStream out;
+    private Socket socket;
+    private DataInputStream in;
+    private DataOutputStream out;
 
-    JTextField inputField;
-    JTextArea charTextArea;
+    private JFrame frame;
+    private JTextField inputField;
+    private JTextArea charTextArea;
+    public AuthWindow authWindow;
 
     public ChatClient() {
-        setTitle("ChatClient v0.1");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(0, 0, 600, 500);
+        connection();
+
+        frame = new JFrame();
+        frame.setTitle("ChatClient v0.1");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setBounds(0, 0, 600, 500);
 
         JPanel chatPanel = new JPanel(new BorderLayout());
         charTextArea = new JTextArea();
@@ -31,31 +36,43 @@ public class ChatClient extends JFrame {
         JScrollPane scrollPane = new JScrollPane(charTextArea);
         chatPanel.add(scrollPane);
 
-        add(chatPanel);
+        frame.add(chatPanel);
 
         JPanel controlPanel = new JPanel(new BorderLayout());
 
         inputField = new JTextField();
+        inputField.setEditable(false);
 
         JButton submitBtn = new JButton("Submit");
         submitBtn.addActionListener(new SendButtonListener());
         controlPanel.add(submitBtn, BorderLayout.EAST);
 
         controlPanel.add(inputField);
-        add(controlPanel, BorderLayout.SOUTH);
-        setVisible(true);
+        frame.add(controlPanel, BorderLayout.SOUTH);
+        frame.setVisible(true);
 
-        connection();
+        authWindow = new AuthWindow(this);
+    }
+
+    public DataInputStream getIn() {
+        return in;
+    }
+
+    public DataOutputStream getOut() {
+        return out;
+    }
+
+    void activate() {
+        inputField.setEditable(true);
+        readMessage();
     }
 
     public void connection() {
-        charTextArea.setText("Enter [/auth <login> <password>] for authorization\n");
         if (connectionCount < 6) {
             try {
                 socket = new Socket(host, port);
                 in = new DataInputStream(socket.getInputStream());
                 out = new DataOutputStream(socket.getOutputStream());
-                readMessage();
             } catch (IOException e) {
                 System.out.println("Connection error");
                 connectionCount++;
@@ -79,23 +96,11 @@ public class ChatClient extends JFrame {
 
             @Override
             public void run() {
-                boolean isAuth = false;
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         String message = in.readUTF();
                         displayMessageOnGUI(message);
 
-                        if (!isAuth) {
-                            if (message.startsWith("/authok")) {
-                                System.out.println("Authorized");
-                                isAuth = true;
-                                displayMessageOnGUI(load());
-                            }
-                        } else {
-                            if (message.equals("/end")) {
-                                break;
-                            }
-                        }
                     } catch (IOException e) {
                         save();
                         Thread.currentThread().interrupt();
@@ -138,6 +143,7 @@ public class ChatClient extends JFrame {
         }
     }
 
+
     public void save() {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File("C:\\Users\\" +
                 "Пользователь.000\\Desktop\\GBLevel3\\lesson2\\src\\main\\resources\\history.txt")))){
@@ -175,7 +181,7 @@ public class ChatClient extends JFrame {
         return (text == null) ? "Message history is empty" : text;
     }
 
-        private class SendButtonListener implements ActionListener {
+    private class SendButtonListener implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
