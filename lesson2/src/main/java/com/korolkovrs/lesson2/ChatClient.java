@@ -11,15 +11,16 @@ public class ChatClient {
     private int connectionCount = 1;
     private String host = "localhost";
     private int port = Server.PORT;
-    private final int NUMB_OF_SAVED_MESSAGE = 100;
 
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private ChatHistoryService chatHistory;
 
     private JFrame frame;
     private JTextField inputField;
     private JTextArea charTextArea;
+    private JButton submitBtn;
     public AuthWindow authWindow;
 
     public ChatClient() {
@@ -43,7 +44,7 @@ public class ChatClient {
         inputField = new JTextField();
         inputField.setEditable(false);
 
-        JButton submitBtn = new JButton("Submit");
+        submitBtn = new JButton("Submit");
         submitBtn.addActionListener(new SendButtonListener());
         controlPanel.add(submitBtn, BorderLayout.EAST);
 
@@ -51,7 +52,7 @@ public class ChatClient {
         frame.add(controlPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
 
-        authWindow = new AuthWindow(this);
+        sendMessageWithEnter(true);
     }
 
     public DataInputStream getIn() {
@@ -63,6 +64,7 @@ public class ChatClient {
     }
 
     void activate() {
+        chatHistory = new ChatHistoryService(charTextArea);
         inputField.setEditable(true);
         readMessage();
     }
@@ -73,6 +75,7 @@ public class ChatClient {
                 socket = new Socket(host, port);
                 in = new DataInputStream(socket.getInputStream());
                 out = new DataOutputStream(socket.getOutputStream());
+                authWindow = new AuthWindow(this);
             } catch (IOException e) {
                 System.out.println("Connection error");
                 connectionCount++;
@@ -102,10 +105,8 @@ public class ChatClient {
                         displayMessageOnGUI(message);
 
                     } catch (IOException e) {
-                        save();
-                        Thread.currentThread().interrupt();
                         unsubscribe();
-                        displayMessageOnGUI("Session closed. Goodbye!");
+                        JOptionPane.showMessageDialog(frame.getContentPane(), "Session closed. Goodbye!");
                         connection();
                         return;
                     }
@@ -126,6 +127,10 @@ public class ChatClient {
     }
 
     private void unsubscribe() {
+        chatHistory.saveHistory();
+        charTextArea.setText("");
+        charTextArea.setEditable(false);
+        inputField.setEditable(false);
         try {
             socket.close();
         } catch (IOException e) {
@@ -143,58 +148,28 @@ public class ChatClient {
         }
     }
 
-
-    public void save() {
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File("C:\\Users\\" +
-                "Пользователь.000\\Desktop\\GBLevel3\\lesson2\\src\\main\\resources\\history.txt")))){
-            writer.write(charTextArea.getText());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String load() {
-        String text = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" +
-                "Пользователь.000\\Desktop\\GBLevel3\\lesson2\\src\\main\\resources\\history.txt")))) {
-            StringBuilder stringBuilder = new StringBuilder();
-            String buff;
-            boolean start = false;
-            int i = 0;
-
-            while ((buff = reader.readLine()) != null) {
-                if (i >= NUMB_OF_SAVED_MESSAGE) {
-                    break;
-                }
-                if (start && (!buff.isBlank())) {
-                    stringBuilder.append(buff + "\n");
-                    i++;
-                }
-                if (buff.startsWith("/authok")) {
-                    start = true;
-                }
-            }
-            text = stringBuilder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return (text == null) ? "Message history is empty" : text;
-    }
-
     private class SendButtonListener implements ActionListener {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (inputField.getText().isBlank()) {
-                    return;
-                }
-                try {
-                    out.writeUTF(inputField.getText());
-                } catch (IOException ioException) {
-                    System.out.println("Sending message error");
-
-                }
-                inputField.setText("");
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (inputField.getText().isBlank()) {
+                return;
             }
+            try {
+                out.writeUTF(inputField.getText());
+            } catch (IOException ioException) {
+                System.out.println("Sending message error");
+
+            }
+            inputField.setText("");
         }
     }
+
+    private void sendMessageWithEnter(boolean flag) {
+        if (flag) {
+            frame.getRootPane().setDefaultButton(submitBtn);
+        } else {
+            frame.getRootPane().setDefaultButton(null);
+        }
+    }
+}

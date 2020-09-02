@@ -18,7 +18,8 @@ public class DataBaseConnectionService {
 
         try {
             DriverManager.registerDriver(new Driver());
-            return DriverManager.getConnection("jdbc:mysql://localhost:8888/chat?useUnicode=true&serverTimezone=UTC", "root", "root");
+            return DriverManager.getConnection("jdbc:mysql://localhost:8888/chat?useUnicode=true&serverTimezone=UTC",
+                    "root", "root");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             throw new RuntimeException("Driver Registration error");

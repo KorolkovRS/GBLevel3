@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     public static final int PORT = 8082;
     private AuthService authService;
     private Set<ClientHandler> clientHandlers;
+    ExecutorService executorService = Executors.newCachedThreadPool();
 
     public Server() {
         this(PORT);
@@ -74,5 +77,9 @@ public class Server {
         }
 
         sender.sendMessage(String.format("Sending error. Incorrect name [%s].", name));
+    }
+
+    public void addThread(Runnable thread) {
+        executorService.execute(thread);
     }
 }

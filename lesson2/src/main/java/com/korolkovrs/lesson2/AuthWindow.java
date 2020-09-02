@@ -18,7 +18,7 @@ public class AuthWindow {
 
     ChatClient chatClient;
 
-    public AuthWindow(ChatClient chatClient) {
+    public AuthWindow(final ChatClient chatClient) {
         this.chatClient = chatClient;
         frame = new JFrame();
         frame.setTitle("Authentication");
@@ -29,10 +29,10 @@ public class AuthWindow {
 
         JPanel panel = new JPanel(new FlowLayout());
         JLabel jLogin = new JLabel("Login");
-        JTextField ltf = new JTextField(10);
+        final JTextField ltf = new JTextField(10);
         JLabel jPassword = new JLabel("Password");
         JButton button = new JButton("Enter");
-        JPasswordField passwordField = new JPasswordField(10);
+        final JPasswordField passwordField = new JPasswordField(10);
 
         button.addActionListener(new AbstractAction() {
             @Override
@@ -44,7 +44,8 @@ public class AuthWindow {
                     Pattern pattern = Pattern.compile("[^\\w]");
                     Matcher matcher = pattern.matcher(login + password);
                     if (matcher.find()) {
-                        JOptionPane.showMessageDialog(frame.getContentPane(), "The username and password must contain" +
+                        JOptionPane.showMessageDialog(frame.getContentPane(), "The username and password must contain"
+                                +
                                 "only letters and numbers");
                         System.out.println((login + password).substring(matcher.start(), matcher.end()));
                     } else {
@@ -54,8 +55,9 @@ public class AuthWindow {
                             ioException.printStackTrace();
                         }
                     }
+                } else  {
+                    JOptionPane.showMessageDialog(frame.getContentPane(), "Empty login or password");
                 }
-                JOptionPane.showMessageDialog(frame.getContentPane(), "Empty login or password");
                 ltf.setText("");
                 passwordField.setText("");
             }

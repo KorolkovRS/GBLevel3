@@ -20,7 +20,7 @@ public class ClientHandler {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
 
-            new Thread(new Runnable() {
+            server.addThread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -32,8 +32,7 @@ public class ClientHandler {
                         closeConnection();
                     }
                 }
-            })
-                    .start();
+            });
 
         } catch (IOException e) {
             throw new RuntimeException("Client handler was not created");
